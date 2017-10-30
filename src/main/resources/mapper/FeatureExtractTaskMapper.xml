@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.didichuxing.decision.dao.FeatureExtractTaskDao">
+    <!-- 我的任务：查询个人的所有任务 -->
+    <select id="selectTaskByApplierName" resultMap="FeatureExtractTaskMap">
+        SELECT f.*
+        FROM feature_extract_task f
+        WHERE f.applier_name = #{applierName}
+        ORDER BY f.create_time DESC
+    </select>
+
+    <!-- 我的任务：编辑前按id查询 -->
+    <select id="selectTaskById" resultMap="FeatureExtractTaskMap">
+        SELECT f.*
+        FROM feature_extract_task f
+        WHERE f.id = #{id}
+    </select>
+
+    <!-- 我的任务：编辑 -->
+    <update id="editIndividualTask" parameterType="FeatureExtractTask">
+        UPDATE feature_extract_task f
+        SET f.feature_list = #{task.featureList}, f.user_type = #{task.userType}, f.business_type = #{task.businessType},
+            f.tag_id = #{task.tagId}, f.tag_user_type = #{task.tagUserType}, f.name = #{task.name}, f.background = #{task.background},
+            f.applier = #{task.applier}, f.department = #{task.department}, f.user_define_path = #{task.userDefinePath},
+            f.start_day = #{task.startDay}, f.end_day = #{task.endDay}, f.cities = #{task.cities}, f.current_situation = #{task.currentSituation},
+            f.expect_gain = #{task.expectGain}, f.actual_gain = #{task.actualGain}, f.table_group = #{task.tableGroup}, f.table_status = #{task.tableStatus},
+            f.status = #{task.status}, f.run_status = #{task.runStatus}, f.output_fmt = #{task.outputFormat}, f.hadoop_user = #{task.hadoopUser},
+            f.hive_table = #{task.hiveTable}, f.history_auditor = #{task.historyAuditor}, f.is_copy = #{task.isCopy}, f.task_scene = #{task.taskScene},
+            f.model_content = #{task.modelContent}, f.is_weather_task = #{task.isWeatherTask}, f.is_publish = #{task.isPublish}, f.hive_valid_day = #{task.hiveValidDay},
+            f.model_type = #{task.modelType}, f.tag_id = #{task.tagId}, f.tag_user_type = #{task.tagUserType}
+        WHERE id = #{task.id}
+    </update>
+
+    <!-- 我的任务：复制 -->
+    <update id="copyTask" >
+      UPDATE feature_extract_task f
+      SET f.start_day = #{startDay}, f.end_day = #{endDay}
+      WHERE f.id = #{id}
+    </update>
+
+    <!-- 我的任务：删除 -->
+    <update id="deleteIndividualTask">
+        UPDATE feature_extract_task f
+        SET f.status = #{status}
+        WHERE f.id = #{id}
+    </update>
+
+    <resultMap id="FeatureExtractTaskMap" type="FeatureExtractTask">
+        <id column="id" property="id" javaType="long"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="feature_list" property="featureList" javaType="String"/>
+        <result column="applier" property="applier" javaType="String"/>
+        <result column="applier_name" property="applierName" javaType="String"/>
+        <result column="department" property="department" javaType="String"/>
+        <result column="user_define_path" property="userDefinePath" javaType="String"/>
+        <result column="start_day" property="startDay" javaType="String"/>
+        <result column="end_day" property="endDay" javaType="String"/>
+        <result column="cities" property="cities" javaType="String"/>
+        <result column="currentSituation" property="current_situation" javaType="String"/>
+        <result column="expect_gain" property="expectGain" javaType="String"/>
+        <result column="actual_gain" property="actualGain" javaType="String"/>
+        <result column="table_group" property="tableGroup" javaType="String"/>
+        <result column="table_status" property="tableStatus" javaType="String"/>
+        <result column="create_time" property="createTime" javaType="String"/>
+        <result column="modify_time" property="modifyTime" javaType="String"/>
+        <result column="status" property="status" javaType="int"/>
+        <result column="run_status" property="runStatus" javaType="int"/>
+        <result column="output_fmt" property="outputFormat" javaType="int"/>
+        <result column="hadoop_user" property="hadoopUser" javaType="String"/>
+        <result column="hive_table" property="hiveTable" javaType="String"/>
+        <result column="history_auditor" property="historyAuditor" javaType="String"/>
+        <result column="is_copy" property="isCopy" javaType="int"/>
+        <result column="task_scene" property="taskScene" javaType="int"/>
+        <result column="model_content" property="modelContent" javaType="String"/>
+        <result column="is_weather_task" property="isWeatherTask" javaType="int"/>
+        <result column="is_publisher" property="isPublisher" javaType="int"/>
+        <result column="hive_valid_day" property="hiveValidDay" javaType="String"/>
+        <result column="user_type" property="userType" javaType="int"/>
+        <result column="business_type" property="businessType" javaType="int"/>
+        <result column="model_type" property="modelType" javaType="int"/>
+        <result column="task_type" property="taskType" javaType="int"/>
+        <result column="execute_period" property="executePeriod" javaType="int"/>
+        <result column="end_date" property="endDate" javaType="String"/>
+        <result column="latest_execute_date" property="latestExecuteDate" javaType="String"/>
+        <result column="tag_id" property="tagId" javaType="String"/>
+        <result column="tag_user_type" property="tagUserType" javaType="int"/>
+    </resultMap>
+</mapper>

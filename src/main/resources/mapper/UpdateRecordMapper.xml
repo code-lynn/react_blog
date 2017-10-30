@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.didichuxing.decision.dao.UpdateRecordDao">
+
+    <select id="select" resultMap="UpdateRecordMap">
+        SELECT id, title, publisher, CAST(content AS CHAR(10000) CHARACTER SET utf8) AS content, create_time, modify_time
+        FROM update_record
+        ORDER BY create_time DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <resultMap id="UpdateRecordMap" type="UpdateRecord">
+        <id column="id" property="id" javaType="long"/>
+        <result column="title" property="title" javaType="String"/>
+        <result column="publisher" property="publisher" javaType="String"/>
+        <result column="content" property="content" javaType="String"/>
+        <result column="create_time" property="createTime" javaType="String"/>
+        <result column="modify_time" property="modifyTime" javaType="String"/>
+    </resultMap>
+</mapper>
