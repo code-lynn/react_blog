@@ -1,0 +1,349 @@
+*{
+    padding:0;
+    margin:0;
+    list-style: none;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    font-size: 14px;
+    color: #333;
+}
+
+.clearfix:after{
+    display: block;
+    content: '';
+    clear:both;
+    height:0;
+}
+.clearfix{
+    zoom:1;
+}
+.header{
+    width:100%;
+    background: #393b48;
+}
+.flexLayout{
+    display: flex;
+    flex:1;
+}
+.container .loading{
+    position: fixed;
+    left:50%;
+    top:50%;
+    width: 100px;
+    height: 100px;
+    margin-left:-50px;
+    margin-top:-50px;
+    z-index: 1000;
+}
+.container>.hold_sidebar{
+    width: 100%;
+    display: flex;
+    margin-top:1px;
+
+}
+.container>.hold_sidebar>.hold_content{
+
+    flex:1;
+}
+.container .loading img{
+    width: 100%;
+    height: 100%;
+}
+a{
+    text-decoration: none;
+    color: #444;
+}
+a:link,a:visited{color:#444;text-decoration:none;}
+a:hover{color:#cc675e;}
+.ant-layout-header{
+    padding:0;
+}
+body{
+    background: #e0e0e0;
+}
+.container{
+    background: #fff;
+}
+.container>div{
+    width:100%;
+}
+/*sidebar 样式 start*/
+.sidebar{
+    width:150px;
+    border-right: 1px solid #d1dbe5;
+}
+.sidebar.active{
+    width:50px;
+}
+.sidebar.active>ul>li>a>span{
+    display: none;
+}
+.sidebar>ul>li>a>span{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    left:0;
+    top:0;
+    z-index: 2;
+}
+.sidebar>ul>li{
+    text-align: center;
+    margin-top:1px;
+    line-height: 40px;
+    height: 40px;
+}
+.sidebar>ul>li>a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.sidebar>ul>li>a>button{
+    width: 50px;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    position: absolute;
+    left:0;
+    top:0;
+    border-radius: 0px;
+    outline: none;
+}
+.sidebar>ul>li>a>button:hover{
+    background: transparent;
+}
+.sidebar>ul>li>a>button>i{
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size:18px;
+}
+.sidebar>ul>li:hover a{
+    /*background: #dedee0;*/
+    color: #faa15a;
+}
+.sidebar>ul>li>.active{
+    background: #fff;
+    color: #faa15a;
+}
+
+
+.sidebar>ul>li>.active>.ant-btn>i{
+    color: #faa15a;
+}
+.changeSize{
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    background: #3c3d45;
+    border-left:1px solid #fff;
+    cursor: pointer;
+}
+.changeSize i{
+    color:#fff;
+    display: none;
+}
+.changeSize>.active{
+    display: inline-block;
+}
+.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    background: transparent;
+}
+/*sidebar 样式 end*/
+
+/*didi公共样式  颜色*/
+.didi-btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    outline: none;
+    padding: 0 20px;
+    font-size: 12px;
+    line-height: 35px;
+    height: 35px;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.didi-btn-ok {
+    color: #fa8919;
+    background-color: #fff;
+    border-color: #fa8919;
+}
+.didi-btn:hover{
+    color: #fff;
+    background-color: #fa8919;
+    border-color: #fff;
+}
+.didi-black {
+    color: #333;
+}
+
+.didi-green {
+    color: #58EE56;
+}
+
+.didi-red {
+    color: #FC2018;
+}
+
+.didi-grey {
+    color: #ccc;
+}
+
+.didi-ori {
+    color: #fa8919;
+}
+.didi-input, .didi-textarea {
+    width: 90%;
+    border: 1px solid #d1dbe5;
+    border-radius: 5px;
+}
+.didi-textarea {
+    background-color: #fcfcfc;
+}
+
+.didi-input {
+    height: 36px;
+}
+.didi-textarea-fix {
+    resize: none;
+}
+:after{
+    box-sizing: border-box;
+}
+.didi-tooltips.left:after{
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%) rotate(270deg);
+    -webkit-transform: translateY(-50%) rotate(270deg);
+    -ms-transform: translateY(-50%) rotate(270deg);
+    -o-transform: translateY(-50%) rotate(270deg);
+
+}
+.didi-tooltips:after{
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 14px 14px;
+    border-color: transparent transparent #666;
+}
+
+.didi-tooltips {
+    position: absolute;
+    background-color: #666;
+    color: #fff;
+    width: 175px;
+    padding: 5px 10px;
+    margin-top: 1px;
+    font-size: 12px;
+}
+/*didi公共样式 end*/
+
+/*modal 点击hover 的背景颜色*/
+.ant-btn-primary {
+    color: #fff;
+    background-color: #fa8919;
+    border-color: #fa8919;
+}
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+    color: #fff;
+    background-color: rgba(250, 137, 25, 0.87) !important;
+    border-color: rgba(250, 137, 25, 0.87);
+}
+.ant-btn-primary.disabled,
+.ant-btn-primary[disabled],
+.ant-btn-primary.disabled:hover,
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary.disabled:focus,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary.disabled:active,
+.ant-btn-primary[disabled]:active,
+.ant-btn-primary.disabled.active,
+.ant-btn-primary[disabled].active {
+    color: rgba(0, 0, 0, 0.25);
+    background-color: #f7f7f7 !important;
+    border-color: #d9d9d9;
+}
+/*modal 点击hover 的背景颜色*/
+
+/*修改antd的table的边框*/
+.ant-table-bordered .ant-table-header > table, .ant-table-bordered .ant-table-body > table, .ant-table-bordered .ant-table-fixed-left table, .ant-table-bordered .ant-table-fixed-right table {
+    border: 1px solid #d1dbe5;
+    border-right: 0;
+    border-bottom: 0;
+}
+.ant-table-bordered .ant-table-thead > tr > th, .ant-table-bordered .ant-table-tbody > tr > td {
+    border-right: 1px solid #d1dbe5;
+}
+.ant-table-tbody > tr > td {
+    border-bottom: 1px solid #d1dbe5;
+    transition: all .3s;
+}
+.ant-table-bordered .ant-table-thead > tr > th {
+    border-bottom: 1px solid #d1dbe5;
+}
+.public-table .ant-table-thead > tr > th {
+    background: #eef1f6;
+}
+.ant-table-bordered.ant-table-empty .ant-table-placeholder {
+    border-left: 1px solid #d1dbe5;
+    border-right: 1px solid #d1dbe5;
+}
+/*分页的边框*/
+.ant-pagination-item {
+    border: 1px solid #d1dbe5;
+}
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    border: 1px solid #d1dbe5;
+}
+.ant-table-placeholder {
+    border-bottom: 1px solid #d1dbe5;
+}
+
+/*修改antd的table的边框*/
+
+/*删除确认框*/
+.modal_confirm{
+    .ant-confirm-body .ant-confirm-title{
+        font-size: 16px;
+    }
+    .ant-confirm-content{
+        font-size: 14px;
+    }
+    .ant-btn.ant-btn-primary{
+        color: #fff!important;
+    }
+    .ant-btn:hover, .ant-btn:focus{
+        border-color: #fa8919;
+        color: #fa8919;
+        transition: all .5s;
+    }
+    .ant-btn.ant-btn-primary:hover, .ant-btn.ant-btn-primary :focus {
+        border-color: #fa8919;
+        color: #fff;
+        transition: all .5s;
+    }
+}
