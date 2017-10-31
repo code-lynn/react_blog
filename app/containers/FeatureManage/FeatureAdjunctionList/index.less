@@ -1,0 +1,104 @@
+.ad-list{
+    flex: .9;
+    margin: 30px auto;
+    .requirement-pool{
+        position: relative;
+    }
+    .episode{
+        margin: 20px 0;
+        position: relative;
+    }
+    .confirm-btn{
+        background: transparent;
+    }
+    .confirm-btn:hover{
+        background: transparent!important;
+    }
+    .table-header{
+        width: 100%;
+        border: 1px solid #e9e9e9;
+        border-bottom: none;
+        .table-util{
+            height: 40px;
+            width: 100%;
+            position: relative;
+            background-color: #f8f8f9;
+            .table-name{
+                margin-left: 20px;
+                display: inline-block;
+                padding-top: 10px;
+                height: 100%;
+                color: #666;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            .toggle{
+                position: absolute;
+                right: 10px;
+                top: 12px;  
+                color: #fa8919;
+                cursor: pointer;
+            }
+            .check-info{
+                position: absolute;
+                display: none;
+                right: 210px;
+                top: 14px;
+                font-size: 12px;
+                color: #ff886c;
+            }
+            .check-info.show{
+                display: inline-block;
+            }
+        }
+        .check-progress{
+            width: 60%;
+            height: 60px;
+            margin:0 20%;
+            display: flex;
+            justify-content: space-around;
+            img{
+                vertical-align: middle;
+                width: 30px;
+                height: 30px;
+            }
+            .check-item{
+                   cursor:pointer ;
+                   img{
+                       margin-left: 20px;
+                       margin-top: 5px;
+                   }
+                   p{
+                        text-align: center;
+                        width: 70px;
+                        color: #cdcdcd;
+                   }
+                   p.pass{
+                       color: #fa8919
+                   }
+                   
+            }
+            .check-arrow{
+                padding-top: 10px;
+                img{
+                    padding-top: 10px;
+                }
+            }
+        }
+        .check-progress.hide{
+            display: none;
+        }
+       
+        
+    }
+    .hive_table{
+        display: block;
+    }
+    .hive_table.hide{
+        display: none;
+    }
+}
+.import-label{
+    font-weight: bold;
+    top:5px;
+}

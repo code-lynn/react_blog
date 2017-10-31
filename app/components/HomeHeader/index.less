@@ -1,0 +1,93 @@
+.nav-title{
+  padding: 0 25px;
+  height: 70px;
+  line-height: 70px;
+  font-size: 14px;
+  color: #b0b0b0;
+  .ft-color{
+    color: #b0b0b0;
+    &:hover { color: #faa15a; }
+  }
+  .active{
+    color: #faa15a;
+  }
+
+
+}
+.logo_style{
+  display: inline-block;
+  width: 200px;
+  height: 70px;
+  line-height: 70px;
+  padding-left: 15px;
+  background-color: #fa8919;
+  color: #fff;
+  font-size: 16px;
+  margin-right: 20px;
+  cursor: pointer;
+  >img{
+    margin:20px 10px 0 0;
+  }
+  >div{
+    padding-left:10px;
+    border-left:1px solid #edeef1;
+    height:15px;
+    font-size: 15px;
+    line-height: 15px;
+    margin-top:30px;
+  }
+}
+.logoInfo{
+  width: 150px;
+  height: 70px;
+  line-height: 70px;
+  padding-left:20px;
+  color:#b0b0b0;
+  position: relative;
+  &:hover {
+    background-color: rgba(48,49,57,.97);
+    color:#fff;
+    .logout_up{
+      display: inline-block;
+    }
+    .logout_down{
+      display: none;
+    }
+    .logout{
+      display: block;
+    }
+  }
+  .logout_up{
+    display: none;
+    font-size: 12px;
+  }
+  .logout_down{
+    display: inline-block;
+    font-size: 12px;
+  }
+  .logout{
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    padding-left: 20px;
+    background-color: rgba(48,49,57,.97);
+    height:40px;
+    line-height: 40px;
+    z-index: 10;
+    a{
+      color:#b0b0b0;
+    }
+  }
+  >span{
+    &:hover {
+      color:#fa8919;
+      cursor: pointer;
+      a{
+        color:#fa8919;
+      }
+    }
+  }
+}
+
