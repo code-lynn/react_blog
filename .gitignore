@@ -27,9 +27,10 @@ src/test/
 .gradle
 MANIFEST.MF
 dependency-reduced-pom.xml
+view/node_modules/
 node_modules/
-dist/static/js/*.min.js.map
-dist/static/css/*.min.css.map
+view/dist/static/js/*.min.js.map
+view/dist/static/css/*.min.css.map
 
 # Packages #
 ############
