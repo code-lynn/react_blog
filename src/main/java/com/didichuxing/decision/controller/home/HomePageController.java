@@ -29,29 +29,10 @@ public class HomePageController {
     @Autowired
     private HomePageService homePageService;
 
-    @Autowired
-    private SSOService ssoService;
-
     @RequestMapping(value = "home/update_record", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public String updateRecords(@RequestParam(value = "size", defaultValue = "5") int size,
                                             @RequestParam(value = "offset", defaultValue = "0") int offset){
         return homePageService.getTopKUpdateRecord(size, offset);
     }
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String index(HttpServletRequest request, HttpServletResponse response) {
-        boolean isLogin = ssoService.checkLogin(request, response);
-        String redirect = null;
-        if (isLogin == false) {
-            String currentUrl = request.getRequestURL().toString();
-            if (request.getQueryString() != null) {
-                currentUrl += "?" + request.getQueryString();
-            }
-            String loginUrl = ssoService.loginRequired(currentUrl);
-            redirect = "redirect:" + loginUrl;
-            return redirect;
-        }
-        System.out.println("user already login");
-        return redirect;
-    }
 }
