@@ -15,14 +15,13 @@ import javax.servlet.http.HttpServletResponse;
  * Created by didi on 2017/11/1.
  */
 @Controller
-@RequestMapping("/")
 public class LoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private SSOService ssoService;
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogin = ssoService.checkLogin(request, response);
         String redirect = null;

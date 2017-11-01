@@ -1,11 +1,6 @@
 package com.didichuxing.decision.controller.home;
 
-import com.didichuxing.decision.entity.UpdateRecord;
-import com.didichuxing.decision.exception.ErrorCode;
-import com.didichuxing.decision.service.SSOService;
 import com.didichuxing.decision.service.home.HomePageService;
-import com.didichuxing.decision.tools.Const;
-import com.didichuxing.decision.tools.ResponseValueTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by didi on 2017/9/25.

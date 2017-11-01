@@ -22,7 +22,6 @@ import java.io.IOException;
  * Created by didi on 2017/1/4.
  */
 @Controller
-@RequestMapping("/")
 public class SSOController {
 
     private static Logger logger = LoggerFactory.getLogger(SSOController.class);
@@ -33,7 +32,7 @@ public class SSOController {
     @Value("${main.index}")
     private String        mainIndex;
 
-    @RequestMapping(value = "callback", method = RequestMethod.GET)
+    @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
         boolean result = false;
         String redirect = null;
@@ -59,7 +58,7 @@ public class SSOController {
         return redirect;
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/oceanus/login/callback", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
         String ticket = ssoService.getTicketFromCookie(request, response);
         String redirect = null;
