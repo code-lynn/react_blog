@@ -11,6 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.didichuxing.decision.dao")
 public class App {
     public static void main(String[] args) {
-        SpringApplication.run(App.class);
+        SpringApplication.run(App.class, args);
     }
 }

@@ -116,24 +116,38 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
 
-      <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-complier-plugin</artifactId>-->
-        <!--<configuration>-->
-          <!--<source>${jdk.version}</source>-->
-          <!--<target>${jdk.version}</target>-->
-          <!--<encoding>UTF-8</encoding>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
     </plugins>
 
-    <!--<resources>-->
-      <!--<resource>-->
-        <!--<directory>src/main/java</directory>-->
-        <!--<includes>-->
-          <!--<include>**/*.xml</include>-->
-        <!--</includes>-->
-      <!--</resource>-->
-    <!--</resources>-->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+
+      <resource>
+        <directory>${basedir}/app</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+
+      <resource>
+        <directory>${basedir}/dist</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 </project>
