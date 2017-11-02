@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     entry:'./app/index.js',
     output: {
-        path:path.resolve(__dirname,'./static/templates'),
+        path:path.resolve(__dirname,'./static'),
         publicPath: '../',
         filename: 'js/[name]-[hash].js',
         chunkFilename: 'js/[name].chunk.js'
@@ -48,7 +48,7 @@ module.exports = {
     plugins: [
         new htmlWebpackPlugin({
             template:'./app/index-build.html',
-            filename: 'pages/index.html'
+            filename: 'templates/index.html'
         }),
         new ExtractTextPlugin('css/[name]-[hash].css'),
         new webpack.DllReferencePlugin({
