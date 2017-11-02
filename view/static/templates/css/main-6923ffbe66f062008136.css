@@ -4795,7 +4795,7 @@ samp {
   position: absolute;
   right: 80px;
   top: 10px;
-  background: url(/view/static/home-code-004ea3c19c954148c31a93b21dcbf1a9.jpg) no-repeat top center;
+  background: url(../img/home-code-004ea3c19c954148c31a93b21dcbf1a9.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 .home_header_box .home_component .home_footer .home-code > div {
@@ -15994,4 +15994,4 @@ body {
   transition: all .5s;
 }
 
-/*# sourceMappingURL=main-0bcb5d191b1c187996e9.css.map*/
+/*# sourceMappingURL=main-6923ffbe66f062008136.css.map*/

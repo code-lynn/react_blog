@@ -5,10 +5,10 @@ const webpack = require('webpack');
 module.exports = {
     entry:'./app/index.js',
     output: {
-        path:path.resolve(__dirname,'./dist'),
-        publicPath: '/dist/',
-        filename: 'static/js/[name]-[hash].js',
-        chunkFilename: 'static/js/[name].chunk.js'
+        path:path.resolve(__dirname,'./static/templates'),
+        publicPath: '../',
+        filename: 'js/[name]-[hash].js',
+        chunkFilename: 'js/[name].chunk.js'
     },
     module:{
         rules:[
@@ -24,7 +24,7 @@ module.exports = {
             })},
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
-                loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
+                loader: 'url-loader?limit=30000&name=img/[name]-[hash].[ext]'
             }
         ]
     },
@@ -47,9 +47,10 @@ module.exports = {
     },
     plugins: [
         new htmlWebpackPlugin({
-            template:'./app/index.html'
+            template:'./app/index-build.html',
+            filename: 'pages/index.html'
         }),
-        new ExtractTextPlugin('static/css/[name]-[hash].css'),
+        new ExtractTextPlugin('css/[name]-[hash].css'),
         new webpack.DllReferencePlugin({
             manifest: require('./static/public/manifest.json'), // 指定manifest.json
             name: 'vendor',  // 当前Dll的所有内容都会存放在这个参数指定变量名的一个全局变量下，注意与DllPlugin的name参数保持一致
