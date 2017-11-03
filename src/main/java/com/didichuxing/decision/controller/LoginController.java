@@ -21,7 +21,7 @@ public class LoginController {
     @Autowired
     private SSOService ssoService;
 
-    private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/index.html";
+    private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
 
     @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) {

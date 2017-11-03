@@ -29,7 +29,7 @@ public class SSOController {
     @Autowired
     private SSOService ssoService;
 
-    private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/index.html";
+    private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
 
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
