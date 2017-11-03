@@ -31,22 +31,25 @@ public class LoginController {
 
     private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
 
-    @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
+    @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("------------------");
-        String currentUrl = request.getRequestURL().toString();
-        String loginUrl = ssoService.loginRequired(currentUrl);
+        String currentUrl = request.getRequestURI();
+        String codeUrl = ssoService.getCallbackUrl();
         RestTemplate restTemplate = new RestTemplateBuilder().build();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded");
         headers.add("Accept", "application/json");
+        String code = request.getAttribute("code").toString();
+        JSONObject params = new JSONObject();
+        params.put("code", code);
+        params.put("app_id", ssoService.getJetAppId());
+        params.put("app_key", ssoService.getAppKey());
 
-        LOGGER.error("loginUrl =========> " + loginUrl);
-        String result = restTemplate.exchange(loginUrl,
-            HttpMethod.GET,
-            new HttpEntity<String>(headers),
-            String.class)
-            .getBody();
+        LOGGER.error("loginUrl =========> " + codeUrl);
+        String result = restTemplate.postForEntity(codeUrl,
+            new HttpEntity<>(params.toString(), headers),
+            String.class).getBody();
 
         LOGGER.error("result =========> " + result);
         JSONObject loginInfo = JSON.parseObject(result);
@@ -59,6 +62,7 @@ public class LoginController {
             return "redirect:" + Const.MAIN_INDEX;
         }
         else {
+            String loginUrl = ssoService.loginRequired(currentUrl);
             return "redirect: " + loginUrl;
         }
     }

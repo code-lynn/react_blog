@@ -31,7 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String currentUrl = request.getRequestURL().toString();
+        String currentUrl = request.getRequestURI();
         String ticket = ssoService.getTicketFromCookie(request, response);
         String username = ssoService.getUsernameFromCookie(request, response);
         JSONObject params = new JSONObject();
