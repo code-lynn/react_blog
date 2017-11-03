@@ -31,13 +31,13 @@ public class SSOController {
 
     private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
 
-    @RequestMapping(value = "/oceanus/callback", method = RequestMethod.GET)
+    @RequestMapping(value = "/callback", method = RequestMethod.GET)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
         boolean result = false;
         String redirect = null;
 
         try {
-            result = checkCode(request, response);
+            result = ssoService.checkCode(request, response);
         } catch (IOException e) {
             logger.error("IOException", e);
         } catch (ServletException e) {
@@ -57,7 +57,7 @@ public class SSOController {
         return redirect;
     }
 
-    @RequestMapping(value = "/oceanus/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
         String ticket = ssoService.getTicketFromCookie(request, response);
         String redirect = null;
@@ -74,37 +74,37 @@ public class SSOController {
         return redirect;
     }
 
-    @RequestMapping(value = "/oceanus/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         ssoService.clearCookies(request, response);
         String logoutUrl = ssoService.getLogoutUrl();
         return "redirect:" + logoutUrl;
     }
 
-    private boolean checkCode(HttpServletRequest request, HttpServletResponse response) throws IOException,
-                                                                                        ServletException {
-        String code = WebUtils.findParameterValue(request, "code");
-        if (StringUtils.isNotEmpty(code)) {
-            String result = ssoService.validCode(code);
-            JSONObject rootObject = JSON.parseObject(result);
-            Integer error = rootObject.getInteger("errno");
-            if (error != null) {
-                JSONObject dataObject = rootObject.getJSONObject("data");
-                if (dataObject != null) {
-                    String ticket = dataObject.getString("ticket");
-                    String userName = dataObject.getString("username");
-                    if (StringUtils.isEmpty(ticket) || StringUtils.isEmpty(userName)) {
-                        logger.error("ticket or username empty");
-                        return false;
-                    }
-                    ssoService.setUserCookie(request, response, ticket, userName);
-                    return true;
-                }
-            }
-        } else {
-            logger.error("code empty");
-        }
-        return false;
-    }
+//    private boolean checkCode(HttpServletRequest request, HttpServletResponse response) throws IOException,
+//                                                                                        ServletException {
+//        String code = WebUtils.findParameterValue(request, "code");
+//        if (StringUtils.isNotEmpty(code)) {
+//            String result = ssoService.validCode(code);
+//            JSONObject rootObject = JSON.parseObject(result);
+//            Integer error = rootObject.getInteger("errno");
+//            if (error != null) {
+//                JSONObject dataObject = rootObject.getJSONObject("data");
+//                if (dataObject != null) {
+//                    String ticket = dataObject.getString("ticket");
+//                    String userName = dataObject.getString("username");
+//                    if (StringUtils.isEmpty(ticket) || StringUtils.isEmpty(userName)) {
+//                        logger.error("ticket or username empty");
+//                        return false;
+//                    }
+//                    ssoService.setUserCookie(request, response, ticket, userName);
+//                    return true;
+//                }
+//            }
+//        } else {
+//            logger.error("code empty");
+//        }
+//        return false;
+//    }
 
 }

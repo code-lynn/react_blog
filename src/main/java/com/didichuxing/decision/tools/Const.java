@@ -11,7 +11,7 @@ public final class Const {
     /* configuration information */
     public static final String CONFIG_FILE = "config.properties";
 
-    public static final String MAIN_INDEX = "main.index";
+    public static final String MAIN_INDEX = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
     public static final String SSO_AUTH_APPID = "sso.auth.appid";
     public static final String SSO_AUTH_APPKEY = "sso.auth.appkey";
     public static final String SSO_AUTH_HOST = "auth.host";

@@ -1,12 +1,20 @@
 package com.didichuxing.decision.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.didichuxing.decision.service.SSOService;
+import com.didichuxing.decision.tools.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,22 +32,39 @@ public class LoginController {
     private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
 
     @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
-    public String index(HttpServletRequest request, HttpServletResponse response) {
-        boolean isLogin = ssoService.checkLogin(request, response);
-        String redirect = "redirect:" + mainIndex;
-        if (isLogin == false) {
-            String currentUrl = request.getRequestURL().toString();
-            LOGGER.error("currentUrl = " + currentUrl);
-            if (request.getQueryString() != null) {
-                currentUrl += "?" + request.getQueryString();
-                LOGGER.error("getQueryString != null, currentUrl = " + currentUrl);
-            }
-            String loginUrl = ssoService.loginRequired(currentUrl);
-            redirect = "redirect:" + loginUrl;
-            LOGGER.error("redirect loginUrl = " + loginUrl);
-            return redirect;
+    public String login(HttpServletRequest request, HttpServletResponse response) {
+        String currentUrl = request.getRequestURL().toString();
+        String loginUrl = ssoService.loginRequired(currentUrl);
+        RestTemplate restTemplate = new RestTemplateBuilder().build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded");
+        headers.add("Accept", "application/json");
+
+        String result = restTemplate.exchange(loginUrl,
+            HttpMethod.GET,
+            new HttpEntity<String>(headers),
+            String.class)
+            .toString();
+
+        LOGGER.error("result =========> " + result);
+        JSONObject loginInfo = JSON.parseObject(result);
+        if (loginInfo.getIntValue("errno") == 0){
+            String ticket = loginInfo.getJSONObject("data").getString("ticket");
+            String username = loginInfo.getJSONObject("data").getString("username");
+
+            ssoService.setUserCookie(request, response, ticket, username);
+
+            return "redirect:" + Const.MAIN_INDEX;
         }
-        System.out.println("user already login");
-        return redirect;
+        else {
+            return "redirect: " + loginUrl;
+        }
+    }
+
+    @RequestMapping(value = "/oceanus/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        ssoService.clearCookies(request, response);
+        String logoutUrl = ssoService.getLogoutUrl();
+        return "redirect:" + logoutUrl;
     }
 }

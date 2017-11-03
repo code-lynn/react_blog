@@ -1,5 +1,6 @@
 package com.didichuxing.decision.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.didichuxing.decision.tools.http.HttpClientUtils;
 import com.google.common.collect.Maps;
@@ -10,10 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -164,6 +168,32 @@ public class SSOService {
         }
 
         return result;
+    }
+
+    public boolean checkCode(HttpServletRequest request, HttpServletResponse response) throws IOException,
+        ServletException {
+        String code = WebUtils.findParameterValue(request, "code");
+        if (StringUtils.isNotEmpty(code)) {
+            String result = validCode(code);
+            JSONObject rootObject = JSON.parseObject(result);
+            Integer error = rootObject.getInteger("errno");
+            if (error != null) {
+                JSONObject dataObject = rootObject.getJSONObject("data");
+                if (dataObject != null) {
+                    String ticket = dataObject.getString("ticket");
+                    String userName = dataObject.getString("username");
+                    if (StringUtils.isEmpty(ticket) || StringUtils.isEmpty(userName)) {
+                        logger.error("ticket or username empty");
+                        return false;
+                    }
+                    setUserCookie(request, response, ticket, userName);
+                    return true;
+                }
+            }
+        } else {
+            logger.error("code empty");
+        }
+        return false;
     }
 
     public void setTicketUrl(String ticketUrl) {
