@@ -48,7 +48,7 @@ module.exports = {
     plugins: [
         new htmlWebpackPlugin({
             template:'./app/index-build.html',
-            filename: 'templates/index.html'
+            filename: 'oceanus/index.html'
         }),
         new ExtractTextPlugin('css/[name]-[hash].css'),
         new webpack.DllReferencePlugin({
