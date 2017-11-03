@@ -21,17 +21,22 @@ public class LoginController {
     @Autowired
     private SSOService ssoService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/index.html";
+
+    @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogin = ssoService.checkLogin(request, response);
-        String redirect = null;
+        String redirect = "redirect:" + mainIndex;
         if (isLogin == false) {
             String currentUrl = request.getRequestURL().toString();
+            LOGGER.error("currentUrl = " + currentUrl);
             if (request.getQueryString() != null) {
                 currentUrl += "?" + request.getQueryString();
+                LOGGER.error("getQueryString != null, currentUrl = " + currentUrl);
             }
             String loginUrl = ssoService.loginRequired(currentUrl);
             redirect = "redirect:" + loginUrl;
+            LOGGER.error("redirect loginUrl = " + loginUrl);
             return redirect;
         }
         System.out.println("user already login");

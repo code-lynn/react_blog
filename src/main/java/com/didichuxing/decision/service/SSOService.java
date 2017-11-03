@@ -43,12 +43,12 @@ public class SSOService {
     private String ticketUrl;
 
     @Value("${sso.cookie.ticket}")
-    private static String cookieTicketName;
+    private String cookieTicketName;
 
     @Value("${sso.cookie.username}")
-    private static String cookieUsernameName;
+    private String cookieUsernameName;
 
-    public static void setUserCookie(HttpServletRequest request, HttpServletResponse response, String ticket,
+    public void setUserCookie(HttpServletRequest request, HttpServletResponse response, String ticket,
                                      String userName) {
         Cookie cookieTicket = new Cookie(cookieTicketName, ticket);
         cookieTicket.setPath("/");
@@ -63,7 +63,7 @@ public class SSOService {
      * @param request
      * @param response
      */
-    public static void clearCookies(HttpServletRequest request, HttpServletResponse response) {
+    public void clearCookies(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
