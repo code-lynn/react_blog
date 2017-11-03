@@ -26,7 +26,7 @@ public class LoginController {
     @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogin = ssoService.checkLogin(request, response);
-        String redirect = mainIndex;
+        String redirect = "redirect:" + mainIndex;
         if (isLogin == false) {
             String currentUrl = request.getRequestURL().toString();
             LOGGER.error("currentUrl = " + currentUrl);

@@ -10,7 +10,7 @@
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>${LOG_HOME}/feature_platform.log</File>-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
+            <level>INFO</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/oceanus_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
@@ -24,7 +24,7 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <root level="INFO">
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>
     </root>
