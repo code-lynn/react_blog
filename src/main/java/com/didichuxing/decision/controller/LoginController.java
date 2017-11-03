@@ -21,10 +21,12 @@ public class LoginController {
     @Autowired
     private SSOService ssoService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/index.html";
+
+    @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) {
         boolean isLogin = ssoService.checkLogin(request, response);
-        String redirect = null;
+        String redirect = mainIndex;
         if (isLogin == false) {
             String currentUrl = request.getRequestURL().toString();
             LOGGER.error("currentUrl = " + currentUrl);
