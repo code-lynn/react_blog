@@ -31,7 +31,7 @@ public class SSOController {
 
     private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/index.html";
 
-    @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
+    @RequestMapping(value = "/callback", method = RequestMethod.GET)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
         boolean result = false;
         String redirect = null;
@@ -57,7 +57,7 @@ public class SSOController {
         return redirect;
     }
 
-    @RequestMapping(value = "/oceanus/login/callback", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
         String ticket = ssoService.getTicketFromCookie(request, response);
         String redirect = null;
@@ -74,7 +74,7 @@ public class SSOController {
         return redirect;
     }
 
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         ssoService.clearCookies(request, response);
         String logoutUrl = ssoService.getLogoutUrl();
