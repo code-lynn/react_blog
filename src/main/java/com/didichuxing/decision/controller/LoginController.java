@@ -12,6 +12,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +31,11 @@ public class LoginController {
     private SSOService ssoService;
 
     private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
+
+    @RequestMapping(value = "/oceanus/", method = RequestMethod.GET)
+    public String index(Model model){
+        return "redirect:" + Const.MAIN_INDEX;
+    }
 
     @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
