@@ -33,6 +33,7 @@ public class LoginController {
 
     @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("------------------");
         String currentUrl = request.getRequestURL().toString();
         String loginUrl = ssoService.loginRequired(currentUrl);
         RestTemplate restTemplate = new RestTemplateBuilder().build();
@@ -40,11 +41,12 @@ public class LoginController {
         headers.add("Content-type", "application/x-www-form-urlencoded");
         headers.add("Accept", "application/json");
 
+        LOGGER.error("loginUrl =========> " + loginUrl);
         String result = restTemplate.exchange(loginUrl,
             HttpMethod.GET,
             new HttpEntity<String>(headers),
             String.class)
-            .toString();
+            .getBody();
 
         LOGGER.error("result =========> " + result);
         JSONObject loginInfo = JSON.parseObject(result);
