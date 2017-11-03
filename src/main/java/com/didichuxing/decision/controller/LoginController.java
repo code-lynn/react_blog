@@ -27,11 +27,14 @@ public class LoginController {
         String redirect = null;
         if (isLogin == false) {
             String currentUrl = request.getRequestURL().toString();
+            LOGGER.error("currentUrl = " + currentUrl);
             if (request.getQueryString() != null) {
                 currentUrl += "?" + request.getQueryString();
+                LOGGER.error("getQueryString != null, currentUrl = " + currentUrl);
             }
             String loginUrl = ssoService.loginRequired(currentUrl);
             redirect = "redirect:" + loginUrl;
+            LOGGER.error("redirect loginUrl = " + loginUrl);
             return redirect;
         }
         System.out.println("user already login");
