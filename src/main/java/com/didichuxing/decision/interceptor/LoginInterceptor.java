@@ -37,23 +37,25 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         JSONObject params = new JSONObject();
         params.put("ticket", ticket);
         params.put("app_id", ssoService.getJetAppId());
-        String ticketUrl = ssoService.getTicketUrl();
+
+        String checkTicketUrl = ssoService.getTicketUrl();
         RestTemplate restTemplate = new RestTemplateBuilder().build();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded");
         headers.add("Accept", "application/json");
 
-        LOGGER.error("loginUrl =========> " + ticketUrl);
-        String result = restTemplate.postForEntity(ticketUrl,
+        LOGGER.error("checkTicketUrl =========> " + checkTicketUrl);
+        String result = restTemplate.postForEntity(checkTicketUrl,
             new HttpEntity<>(params.toString(), headers),
             String.class).getBody();
 
-
-        LOGGER.error("result =======>" + result);
+        LOGGER.error("checkTicketUrl result =======>" + result);
         JSONObject resultInfo = JSON.parseObject(result);
 
         if (resultInfo.getIntValue("errno") == 1){
-            response.sendRedirect(ssoService.loginRequired(currentUrl));
+            String loginUrl = ssoService.loginRequired(currentUrl);
+            LOGGER.error("loginUrl ========> " + loginUrl);
+            response.sendRedirect(loginUrl);
             return false;
         }
         else {

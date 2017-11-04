@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.didichuxing.decision.service.SSOService;
 import com.didichuxing.decision.tools.Const;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,22 +40,24 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
-    public String login(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("------------------");
+    public String login(HttpServletRequest request,
+                        HttpServletResponse response,
+                        @RequestParam("jumpto") String jumpto,
+                        @RequestParam("code") String code) {
+        System.out.println("------------------> /login/callback");
         String currentUrl = request.getRequestURI();
-        String codeUrl = ssoService.getCallbackUrl();
+        String checkCodeUrl = ssoService.getCallbackUrl();
         RestTemplate restTemplate = new RestTemplateBuilder().build();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded");
         headers.add("Accept", "application/json");
-        String code = request.getAttribute("code").toString();
         JSONObject params = new JSONObject();
         params.put("code", code);
         params.put("app_id", ssoService.getJetAppId());
         params.put("app_key", ssoService.getAppKey());
 
-        LOGGER.error("loginUrl =========> " + codeUrl);
-        String result = restTemplate.postForEntity(codeUrl,
+        LOGGER.error("loginUrl =========> " + checkCodeUrl);
+        String result = restTemplate.postForEntity(checkCodeUrl,
             new HttpEntity<>(params.toString(), headers),
             String.class).getBody();
 
@@ -62,10 +66,13 @@ public class LoginController {
         if (loginInfo.getIntValue("errno") == 0){
             String ticket = loginInfo.getJSONObject("data").getString("ticket");
             String username = loginInfo.getJSONObject("data").getString("username");
-
             ssoService.setUserCookie(request, response, ticket, username);
 
-            return "redirect:" + Const.MAIN_INDEX;
+            if(StringUtils.isBlank(jumpto) || jumpto.equals("index")){
+                return "redirect:" + Const.MAIN_INDEX;
+            }else{
+                return "redirect:" + jumpto;
+            }
         }
         else {
             String loginUrl = ssoService.loginRequired(currentUrl);
