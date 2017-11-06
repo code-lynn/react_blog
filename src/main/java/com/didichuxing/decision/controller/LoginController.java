@@ -39,6 +39,11 @@ public class LoginController {
         return "redirect:login/callback";
     }
 
+    @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
+    public String loginCallback(Model model){
+        return "redirect:login/callback";
+    }
+
     @RequestMapping(value = "/oceanus/login/callback", method = RequestMethod.GET)
     public String login(HttpServletRequest request,
                         HttpServletResponse response,

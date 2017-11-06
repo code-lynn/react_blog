@@ -35,7 +35,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         if (currentUrl.equals("/oceanus/login/callback")){
             return true;
         }
-        String checkCodeUrl = ssoService.getCallbackUrl();
         String ticket = ssoService.getTicketFromCookie(request, response);
         String username = ssoService.getUsernameFromCookie(request, response);
         JSONObject params = new JSONObject();
