@@ -32,7 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String currentUrl = request.getRequestURI();
-        if (currentUrl.equals("/oceanus/login/callback")){
+        if (currentUrl.equals("/login/callback")){
             return true;
         }
         String ticket = ssoService.getTicketFromCookie(request, response);
