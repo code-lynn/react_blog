@@ -29,7 +29,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String currentUrl = request.getRequestURI();
-        if (currentUrl.equals("/login/callback")){
+        if (currentUrl.equals("/oceanus/login/callback")){
             return true;
         }
         String ticket = ssoService.getTicketFromCookie(request, response);
@@ -37,11 +37,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
         if (ticket == null){
             String loginUrl = ssoService.loginRequired(currentUrl);
+            LOGGER.error("loginUrl =======> " + loginUrl);
             response.sendRedirect(loginUrl);
             return false;
         }
         else {
-            ssoService.validTicket(ticket);
+            boolean result = ssoService.validTicket(ticket);
+            LOGGER.error("result ==========> " + result);
             return true;
         }
 
