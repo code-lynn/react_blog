@@ -56,10 +56,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         JSONObject resultInfo = JSON.parseObject(result);
 
         if (resultInfo.getIntValue("errno") == 1){
-            String loginUrl = ssoService.loginRequired(currentUrl);
-            LOGGER.error("loginUrl ========> " + loginUrl);
-            response.sendRedirect(loginUrl);
-            return false;
+            if (currentUrl.equals("/oceanus/login/callback")) {
+                String loginUrl = ssoService.loginRequired(currentUrl);
+                LOGGER.error("loginUrl ========> " + loginUrl);
+                response.sendRedirect(loginUrl);
+                return true;
+            }
+            else {
+                return false;
+            }
 //            if (!currentUrl.equals("/oceanus/login/callback")) {
 //                String loginUrl = ssoService.loginRequired(currentUrl);
 //                LOGGER.error("loginUrl ========> " + loginUrl);
