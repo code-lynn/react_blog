@@ -60,10 +60,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
         if (resultInfo.getIntValue("errno") == 1){
 //            if (currentUrl.equals("/oceanus/login/callback")) {
-//                String loginUrl = ssoService.loginRequired(currentUrl);
-//                LOGGER.error("loginUrl ========> " + loginUrl);
-//                response.sendRedirect(loginUrl);
-//                return true;
+                String loginUrl = ssoService.loginRequired(currentUrl);
+                LOGGER.error("loginUrl ========> " + loginUrl);
+                response.sendRedirect(loginUrl);
+                return true;
 //            }
 //            else {
 //                return false;
@@ -75,7 +75,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 //                return false;
 //            }
 //            else {
-                return true;
 //            }
         }
         else {
