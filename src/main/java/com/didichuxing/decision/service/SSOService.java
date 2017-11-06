@@ -129,6 +129,8 @@ public class SSOService {
         if (StringUtils.isNotEmpty(encodeUrl)) {
             url = this.getLoginUrl() + "&jumpto=" + encodeUrl;
         }
+
+        logger.error("loginRequired ======> " + url);
         return url;
     }
 
