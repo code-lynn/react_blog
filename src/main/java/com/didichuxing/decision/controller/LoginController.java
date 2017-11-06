@@ -58,7 +58,7 @@ public class LoginController {
 
         LOGGER.error("params ========> " + params.toString());
 
-        LOGGER.error("loginUrl =========> " + checkCodeUrl);
+        LOGGER.error("checkCodeUrl =========> " + checkCodeUrl);
         String result = restTemplate.postForEntity(checkCodeUrl,
             new HttpEntity<>(params.toString(), headers),
             String.class).getBody();
@@ -68,13 +68,15 @@ public class LoginController {
         if (loginInfo.getIntValue("errno") == 0){
             String ticket = loginInfo.getJSONObject("data").getString("ticket");
             String username = loginInfo.getJSONObject("data").getString("username");
+            LOGGER.error("ticke={}, username={}", ticket, username);
             ssoService.setUserCookie(request, response, ticket, username);
 
-            if(StringUtils.isBlank(jumpto) || jumpto.equals("index")){
-                return "redirect:" + Const.MAIN_INDEX;
-            }else{
-                return "redirect:" + jumpto;
-            }
+            return "redirect:" + Const.MAIN_INDEX;
+//            if(StringUtils.isBlank(jumpto) || jumpto.equals("index")){
+//                return "redirect:" + Const.MAIN_INDEX;
+//            }else{
+//                return "redirect:" + jumpto;
+//            }
         }
         else {
             String loginUrl = ssoService.loginRequired(currentUrl);

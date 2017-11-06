@@ -32,25 +32,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String currentUrl = request.getRequestURI();
-        String loginUrl = ssoService.getLoginUrl();
+        String checkCodeUrl = ssoService.getCallbackUrl();
         String ticket = ssoService.getTicketFromCookie(request, response);
         String username = ssoService.getUsernameFromCookie(request, response);
-        String checkTicketUrl = ssoService.getTicketUrl();
-
-        if (ticket == null){
-            JSONObject json = new JSONObject();
-            json.put("code", 2);
-            json.put("message","Login needed!");
-            json.put("data",loginUrl);
-            response.getWriter().write(json.toString());
-
-            return false;
-        }
-
         JSONObject params = new JSONObject();
         params.put("ticket", ticket);
         params.put("app_id", ssoService.getJetAppId());
 
+        String checkTicketUrl = ssoService.getTicketUrl();
         RestTemplate restTemplate = new RestTemplateBuilder().build();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded");
@@ -67,12 +56,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         JSONObject resultInfo = JSON.parseObject(result);
 
         if (resultInfo.getIntValue("errno") == 1){
-            JSONObject json = new JSONObject();
-            json.put("code", 2);
-            json.put("message","Login needed!");
-            json.put("data",loginUrl);
-            response.getWriter().write(json.toString());
+            String loginUrl = ssoService.loginRequired(currentUrl);
+            LOGGER.error("loginUrl ========> " + loginUrl);
+            response.sendRedirect(loginUrl);
             return false;
+//            if (!currentUrl.equals("/oceanus/login/callback")) {
+//                String loginUrl = ssoService.loginRequired(currentUrl);
+//                LOGGER.error("loginUrl ========> " + loginUrl);
+//                response.sendRedirect(loginUrl);
+//                return false;
+//            }
+//            else {
+//                return true;
+//            }
         }
         else {
             return true;
