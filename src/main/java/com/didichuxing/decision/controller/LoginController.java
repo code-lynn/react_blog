@@ -37,6 +37,16 @@ public class LoginController {
 
     private String mainIndex = "http://fe-test.intra.xiaojukeji.com/oceanus/pages/index.html";
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String root(Model model){
+        return "redirect:" + mainIndex;
+    }
+
+    @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
+    public String oceanus(Model model){
+        return "redirect:" + mainIndex;
+    }
+
     @RequestMapping(value = "/oceanus/", method = RequestMethod.GET)
     public String index(Model model){
         return "redirect:" + mainIndex;
