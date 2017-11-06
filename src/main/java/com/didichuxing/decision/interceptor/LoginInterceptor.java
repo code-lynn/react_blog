@@ -32,6 +32,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String currentUrl = request.getRequestURI();
+        if (currentUrl.equals("/oceanus/login/callback")){
+            return true;
+        }
         String checkCodeUrl = ssoService.getCallbackUrl();
         String ticket = ssoService.getTicketFromCookie(request, response);
         String username = ssoService.getUsernameFromCookie(request, response);
@@ -56,15 +59,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         JSONObject resultInfo = JSON.parseObject(result);
 
         if (resultInfo.getIntValue("errno") == 1){
-            if (currentUrl.equals("/oceanus/login/callback")) {
-                String loginUrl = ssoService.loginRequired(currentUrl);
-                LOGGER.error("loginUrl ========> " + loginUrl);
-                response.sendRedirect(loginUrl);
-                return true;
-            }
-            else {
-                return false;
-            }
+//            if (currentUrl.equals("/oceanus/login/callback")) {
+//                String loginUrl = ssoService.loginRequired(currentUrl);
+//                LOGGER.error("loginUrl ========> " + loginUrl);
+//                response.sendRedirect(loginUrl);
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
 //            if (!currentUrl.equals("/oceanus/login/callback")) {
 //                String loginUrl = ssoService.loginRequired(currentUrl);
 //                LOGGER.error("loginUrl ========> " + loginUrl);
@@ -72,7 +75,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 //                return false;
 //            }
 //            else {
-//                return true;
+                return true;
 //            }
         }
         else {
