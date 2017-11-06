@@ -42,11 +42,6 @@ public class LoginController {
         return "redirect:" + mainIndex;
     }
 
-    @RequestMapping(value = "/oceanus", method = RequestMethod.GET)
-    public String oceanus(Model model){
-        return "redirect:" + mainIndex;
-    }
-
     @RequestMapping(value = "/oceanus/", method = RequestMethod.GET)
     public String index(Model model){
         return "redirect:" + mainIndex;

@@ -130,7 +130,6 @@ public class SSOService {
             url = this.getLoginUrl() + "&jumpto=" + encodeUrl;
         }
 
-        logger.error("loginRequired ======> " + url);
         return url;
     }
 

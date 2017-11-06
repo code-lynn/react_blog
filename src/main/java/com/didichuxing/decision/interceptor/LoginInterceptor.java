@@ -33,19 +33,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         if (currentUrl.equals("/oceanus/login/callback")){
             return true;
         }
+
         String ticket = ssoService.getTicketFromCookie(request, response);
         String username = ssoService.getUsernameFromCookie(request, response);
 
         if (ticket == null || StringUtils.isEmpty(ticket)){
             String loginUrl = ssoService.loginRequired(currentUrl);
-            LOGGER.error("loginUrl =======> " + loginUrl);
             response.sendRedirect(loginUrl);
             return false;
         }
         else {
-            boolean result = ssoService.validTicket(ticket);
-            LOGGER.error("result ==========> " + result);
-            return true;
+            return ssoService.validTicket(ticket);
         }
 
 
