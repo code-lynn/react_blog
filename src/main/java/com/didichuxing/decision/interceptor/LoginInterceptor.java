@@ -32,18 +32,32 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String currentUrl = request.getRequestURI();
+        String loginUrl = ssoService.getLoginUrl();
         String ticket = ssoService.getTicketFromCookie(request, response);
         String username = ssoService.getUsernameFromCookie(request, response);
+        String checkTicketUrl = ssoService.getTicketUrl();
+
+        if (ticket == null){
+            JSONObject json = new JSONObject();
+            json.put("code", 2);
+            json.put("message","Login needed!");
+            json.put("data",loginUrl);
+            response.getWriter().write(json.toString());
+
+            return false;
+        }
+
         JSONObject params = new JSONObject();
         params.put("ticket", ticket);
         params.put("app_id", ssoService.getJetAppId());
 
-        String checkTicketUrl = ssoService.getTicketUrl();
         RestTemplate restTemplate = new RestTemplateBuilder().build();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded");
         headers.add("Accept", "application/json");
 
+        LOGGER.error("params ========> " + params.toString());
+        LOGGER.error("currentUrl =========> " + currentUrl);
         LOGGER.error("checkTicketUrl =========> " + checkTicketUrl);
         String result = restTemplate.postForEntity(checkTicketUrl,
             new HttpEntity<>(params.toString(), headers),
@@ -53,15 +67,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         JSONObject resultInfo = JSON.parseObject(result);
 
         if (resultInfo.getIntValue("errno") == 1){
-            if (!currentUrl.equals("/oceanus/login/callback")) {
-                String loginUrl = ssoService.loginRequired(currentUrl);
-                LOGGER.error("loginUrl ========> " + loginUrl);
-                response.sendRedirect(loginUrl);
-                return false;
-            }
-            else {
-                return true;
-            }
+            JSONObject json = new JSONObject();
+            json.put("code", 2);
+            json.put("message","Login needed!");
+            json.put("data",loginUrl);
+            response.getWriter().write(json.toString());
+            return false;
         }
         else {
             return true;

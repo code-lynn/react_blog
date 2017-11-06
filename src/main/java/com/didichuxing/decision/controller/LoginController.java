@@ -36,7 +36,7 @@ public class LoginController {
 
     @RequestMapping(value = "/oceanus/", method = RequestMethod.GET)
     public String index(Model model){
-        return "redirect:" + Const.MAIN_INDEX;
+        return "redirect: /oceanus/login/callback";
     }
 
     @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
@@ -55,6 +55,8 @@ public class LoginController {
         params.put("code", code);
         params.put("app_id", ssoService.getJetAppId());
         params.put("app_key", ssoService.getAppKey());
+
+        LOGGER.error("params ========> " + params.toString());
 
         LOGGER.error("loginUrl =========> " + checkCodeUrl);
         String result = restTemplate.postForEntity(checkCodeUrl,
