@@ -36,10 +36,10 @@ public class LoginController {
 
     @RequestMapping(value = "/oceanus/", method = RequestMethod.GET)
     public String index(Model model){
-        return "redirect: /oceanus/login/callback";
+        return "redirect:login/callback";
     }
 
-    @RequestMapping(value = "/oceanus/login/callback", method = RequestMethod.GET)
+    @RequestMapping(value = "login/callback", method = RequestMethod.GET)
     public String login(HttpServletRequest request,
                         HttpServletResponse response,
                         @RequestParam("jumpto") String jumpto,
