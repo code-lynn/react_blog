@@ -69,7 +69,12 @@ public class LoginController {
             String jumpto = null;
             jumpto = WebUtils.findParameterValue(request, "jumpto");
             if (jumpto != null) {
-                redirect = "redirect:" + jumpto;
+                if (jumpto.equals("index")){
+                    return "redirect:" + mainIndex;
+                }
+                else {
+                    redirect = "redirect:" + jumpto;
+                }
             } else {
                 redirect = "redirect:" + mainIndex;
             }
