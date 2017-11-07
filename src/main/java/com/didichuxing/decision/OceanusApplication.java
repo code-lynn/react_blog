@@ -9,8 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.didichuxing.decision.dao")
-public class App {
+public class OceanusApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(OceanusApplication.class, args);
     }
 }
