@@ -7,12 +7,12 @@ module.exports = {
     },
     output: {
         filename: 'public/[name].js',
-        path: path.resolve(__dirname, './static'),
+        path: path.resolve(__dirname, './static/oceanus'),
         library: '[name]'
     },
     plugins: [
         new webpack.DllPlugin({
-            path: path.resolve(__dirname, './static/public/manifest.json'), // 本Dll文件中各模块的索引，供DllReferencePlugin读取使用
+            path: path.resolve(__dirname, './static/oceanus/public/manifest.json'), // 本Dll文件中各模块的索引，供DllReferencePlugin读取使用
             name: '[name]',
         }),
     ]

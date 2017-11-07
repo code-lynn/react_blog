@@ -53,7 +53,7 @@ class HomeHeader extends Component{
                     <Icon type="caret-down" className="logout_down"/>
                     <br/>
                     <span className="logout" onClick={this.handleLoginOut.bind(this)}>
-                        <a href={location.host+"/oceanus/logout/"}>退出</a>
+                        <a href="/oceanus/logout">退出</a>
                     </span>
                 </div>
             </div>
