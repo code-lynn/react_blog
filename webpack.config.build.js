@@ -5,8 +5,8 @@ const webpack = require('webpack');
 module.exports = {
     entry:'./app/index.js',
     output: {
-        path:path.resolve(__dirname,'./static/oceanus'),
-        publicPath: '../',
+        path:path.resolve(__dirname,'./static'),
+        publicPath: './',
         filename: 'js/[name]-[hash].js',
         chunkFilename: 'js/[name].chunk.js'
     },
@@ -48,11 +48,11 @@ module.exports = {
     plugins: [
         new htmlWebpackPlugin({
             template:'./app/index-build.html',
-            filename: 'pages/index.html'
+            filename: 'index.html'
         }),
         new ExtractTextPlugin('css/[name]-[hash].css'),
         new webpack.DllReferencePlugin({
-            manifest: require('./static/oceanus/public/manifest.json'), // 指定manifest.json
+            manifest: require('./static/public/manifest.json'), // 指定manifest.json
             name: 'vendor',  // 当前Dll的所有内容都会存放在这个参数指定变量名的一个全局变量下，注意与DllPlugin的name参数保持一致
         }),
         new webpack.optimize.UglifyJsPlugin({
