@@ -21,6 +21,7 @@ web/dist/*
 project/
 target/
 build/
+static/*
 src/test/
 *.ipr
 *.iws
