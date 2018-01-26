@@ -26,7 +26,7 @@ class HomeHeader extends Component{
                 <ul className="fl clearfix">
 
                     <li className="fl nav-title">
-                        <Link to="/html_css" name='html_css'  className={`ft-color `+('html_css'==this.props.changeHeader.activeItemFirst?'active':'')}>HTML+CSS</Link>
+                        <Link to="/Web" name='Web' className={`ft-color ` + ('Web'==this.props.changeHeader.activeItemFirst?'active':'')}>WEB</Link>
                     </li>
                 </ul>
                 <div className="fr logoInfo">
@@ -36,7 +36,7 @@ class HomeHeader extends Component{
                     <Icon type="caret-down" className="logout_down"/>
                     <br/>
                     <span className="logout" onClick={this.handleLoginOut.bind(this)}>
-                        <a href="/oceanus/logout">退出</a>
+                        <a href="javascript:;">退出</a>
                     </span>
                 </div>
             </div>

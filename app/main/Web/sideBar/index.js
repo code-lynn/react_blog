@@ -22,7 +22,7 @@ class SideBar extends React.Component{
                 </div>
                 <ul>
                     <li>
-                        <Link to="/html_css/html" name='html'
+                        <Link to="/web/html" name='html'
                               className={`ft-color `+('html'==this.props.changeHeader.activeItemSecond
                               || ''==this.props.changeHeader.activeItemSecond?'active':'')}>
                             <Popover placement="right" content="HTML" trigger="hover">
@@ -34,18 +34,38 @@ class SideBar extends React.Component{
                         </Link>
 
                     </li>
-
-                    <hr style={{"marginTop":"20px","marginBottom":"20px","border":"0","borderTop":"1px solid #d1dbe5"}}/>
-
                     <li className={'css'==this.props.changeHeader.activeItemSecond?'active':''}>
-                        <Link to="/html_css/css" name='css'
+                        <Link to="/web/css" name='css'
                               className={`ft-color `+('css'==this.props.changeHeader.activeItemSecond?'active':'')}>
                             <Popover placement="right" content="CSS" trigger="hover">
                                 <Button>
-                                    <Icon type="cloud-o" />
+                                    <Icon type="skin" />
                                 </Button>
                             </Popover>
                             <span>CSS</span>
+                        </Link>
+                    </li>
+                    <li className={'javaScript' == this.props.changeHeader.activeItemSecond ? 'active' : ''}>
+                        <Link to="/web/javaScript" name='javaScript'
+                            className={`ft-color ` + ('javaScript' == this.props.changeHeader.activeItemSecond ? 'active' : '')}>
+                            <Popover placement="right" content="javaScript" trigger="hover">
+                                <Button>
+                                    <Icon type="code" />
+                                </Button>
+                            </Popover>
+                            <span>javaScript</span>
+                        </Link>
+                    </li>
+                    <hr style={{ "marginTop": "20px", "marginBottom": "20px", "border": "0", "borderTop": "1px solid #d1dbe5" }} />
+                     <li className={'react' == this.props.changeHeader.activeItemSecond ? 'active' : ''}>
+                        <Link to="/web/react" name='react'
+                            className={`ft-color ` + ('react' == this.props.changeHeader.activeItemSecond ? 'active' : '')}>
+                            <Popover placement="right" content="react" trigger="hover">
+                                <Button>
+                                    <Icon type="trademark" />
+                                </Button>
+                            </Popover>
+                            <span>React</span>
                         </Link>
                     </li>
                 </ul>
