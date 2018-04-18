@@ -1,7 +1,9 @@
 .html{
     .canvas{
+        display:flex;
         padding: 20px;
         .clock_box{
+            // flex: 1;
             padding: 20px;
             text-align: center;
             h3{
@@ -10,6 +12,16 @@
             #clock{
                 border: 1px solid #ccc;
             }
+            #lattice{
+                position: relative;
+                height: 260px;
+            }
+            #lattice span{
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                border: 1px solid #000;
+            }
         }
-    }
+    }  
 }
